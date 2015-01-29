@@ -1,2 +1,5 @@
 build.xml
 %1
+*.class
+*.jar
+bin/

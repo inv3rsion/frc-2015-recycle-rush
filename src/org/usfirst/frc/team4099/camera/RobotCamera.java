@@ -55,22 +55,22 @@ public class RobotCamera {
 	
 	public void moveCamera(Gamepad control) {
 		limitAngles();
-		if (control.isDPadUpPressed()) {
+		if (control.getRightVerticalAxis()  > 0.2) {
 			if (currentPitch < 1.0)
 				currentPitch += MOVE_SPEED;
 		}
 
-		if (control.isDPadDownPressed()) {
+		if (control.getRightVerticalAxis() < 0.2) {
 			if (currentPitch > 0.0)
 				currentPitch -= MOVE_SPEED;
 		}
 		
-		if (control.isDPadRightPressed()) {
+		if (control.getRightHorizontalAxis() > 0.2) {
 			if (currentYaw > 1.0)
 				currentYaw += MOVE_SPEED;
 		}
 		
-		if (control.isDPadLeftPressed()) {
+		if (control.getRightHorizontalAxis() < 0.2) {
 			if (currentYaw < 0.0)
 				currentYaw -= MOVE_SPEED;
 		}

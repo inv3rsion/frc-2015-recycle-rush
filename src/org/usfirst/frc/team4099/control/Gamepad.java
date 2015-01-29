@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Gamepad extends Joystick {
 	
 	/* Joystick Axes */
-	public static final int LEFT_X_AXIS = 0;
-	public static final int LEFT_Y_AXIS = 1;
+	public static final int LEFT_X_AXIS = 1;
+	public static final int LEFT_Y_AXIS = 2;
 	
 	public static final int RIGHT_X_AXIS = 4;
 	public static final int RIGHT_Y_AXIS = 5;
@@ -48,8 +48,8 @@ public class Gamepad extends Joystick {
 	public static final int RIGHT_SHOULDER_BUTTON = 5;
 	
 	/* Trigger Axises */
-	public static final int LEFT_TRIGGER_AXIS = 2;
-	public static final int RIGHT_TRIGGER_AXIS = 3;
+	public static final int TRIGGER_AXIS = 3;
+	//public static final int RIGHT_TRIGGER_AXIS = 3;
 	
 	public Gamepad(int port) {
 		super(port);
@@ -125,11 +125,17 @@ public class Gamepad extends Joystick {
 	}
 
     public double getLeftTrigger() {
-        return this.getRawAxis(LEFT_TRIGGER_AXIS);
+    	if(this.getRawAxis(TRIGGER_AXIS) > 0) {
+    		return this.getRawAxis(TRIGGER_AXIS);
+    	}
+    	return 0;
     }
 
     public double getRightTrigger() {
-        return this.getRawAxis(RIGHT_TRIGGER_AXIS);
+    	if(this.getRawAxis(TRIGGER_AXIS) < 0) {
+    		return -this.getRawAxis(TRIGGER_AXIS);
+    	}
+        return 0;
     }
 	
 	public boolean isLeftShoulderPressed() {

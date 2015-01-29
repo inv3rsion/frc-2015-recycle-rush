@@ -6,7 +6,7 @@ import org.usfirst.frc.team4099.robot.drive.SlideDrive;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 public class Driver {
-	private DriveMode currentMode = DriveMode.ARCADE;
+	private DriveMode currentMode = DriveMode.SLIDE;
     private RobotDrive arcadeDrive;
     private SlideDrive slideDrive;
 
@@ -64,24 +64,26 @@ public class Driver {
             // use left joystick to move forward and backward, left right to strafe
             // use left trigger button to turn left
             // use right trigger button to turn right
-            if (!(controller.isLeftTriggerPressed() && controller.isRightTriggerPressed())) {  // make sure that both turns are not pressed
+            /*if (!(controller.isLeftTriggerPressed() && controller.isRightTriggerPressed())) {  // make sure that both turns are not pressed
                 if (controller.isLeftTriggerPressed())
                     slideDrive.slideDrive(controller.getLeftVerticalAxis() / REDUCTION_FACTOR,
                                           controller.getLeftTrigger() / REDUCTION_FACTOR,
-                                          controller.getLeftHorizontalAxis() / REDUCTION_FACTOR);
+                                          controller.getLeftHorizontalAxis() / REDUCTION_FACTOR);                    
 
                 else if (controller.isRightTriggerPressed())
                     // note that the negative may be placed in the wrong if statement, test to see
                     slideDrive.slideDrive(controller.getLeftVerticalAxis() / REDUCTION_FACTOR,
-                                          -controller.getRightTrigger() / REDUCTION_FACTOR,
+                                          controller.getRightTrigger() / REDUCTION_FACTOR,
                                           controller.getLeftHorizontalAxis() / REDUCTION_FACTOR);
 
             } else {
                     slideDrive.slideDrive(controller.getLeftVerticalAxis() / REDUCTION_FACTOR,
                                           0.0,
                                           controller.getLeftHorizontalAxis() / REDUCTION_FACTOR);
-            }
-
+            }*/
+            slideDrive.slideDrive(controller.getLeftVerticalAxis() / REDUCTION_FACTOR,
+                    controller.getLeftHorizontalAxis() / REDUCTION_FACTOR,
+                    controller.getRightHorizontalAxis() / REDUCTION_FACTOR);
 			break;
 		}
 	}
