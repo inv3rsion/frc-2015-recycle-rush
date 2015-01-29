@@ -47,7 +47,7 @@ public class Gamepad extends Joystick {
 	public static final int LEFT_SHOULDER_BUTTON = 4;
 	public static final int RIGHT_SHOULDER_BUTTON = 5;
 	
-	/* Trigger Axises */
+	/* Trigger Axes */
 	public static final int TRIGGER_AXIS = 3;
 	//public static final int RIGHT_TRIGGER_AXIS = 3;
 	
