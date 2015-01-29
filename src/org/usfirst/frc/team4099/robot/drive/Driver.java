@@ -10,7 +10,7 @@ public class Driver {
     private RobotDrive arcadeDrive;
     private SlideDrive slideDrive;
 
-    public static final double REDUCTION_FACTOR = 2.0;
+    public static final double REDUCTION_FACTOR = 1.0;
 	public static final int FRONT_LEFT_MOTOR = 0;
 	public static final int REAR_LEFT_MOTOR = 1;
 	public static final int FRONT_RIGHT_MOTOR = 6;
