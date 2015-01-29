@@ -47,7 +47,7 @@ public class Gamepad extends Joystick {
 	public static final int LEFT_SHOULDER_BUTTON = 4;
 	public static final int RIGHT_SHOULDER_BUTTON = 5;
 	
-	/* Trigger Axises */
+	/* Trigger Axes */
 	public static final int LEFT_TRIGGER_AXIS = 2;
 	public static final int RIGHT_TRIGGER_AXIS = 3;
 	
@@ -125,11 +125,11 @@ public class Gamepad extends Joystick {
 	}
 
     public double getLeftTrigger() {
-        return this.getRawAxis(LEFT_TRIGGER_AXIS);
+    	return this.getRawAxis(LEFT_TRIGGER_AXIS);
     }
 
     public double getRightTrigger() {
-        return this.getRawAxis(RIGHT_TRIGGER_AXIS);
+    	return this.getRawAxis(RIGHT_TRIGGER_AXIS);
     }
 	
 	public boolean isLeftShoulderPressed() {

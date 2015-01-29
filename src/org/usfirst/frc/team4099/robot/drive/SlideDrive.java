@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.RobotDrive;
 
-public class SlideDrive {
+class SlideDrive {
     private SpeedController sliderTalonFront;
     private SpeedController sliderTalonRear;
     private RobotDrive arcadeDrive;
