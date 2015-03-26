@@ -123,7 +123,6 @@ public class RobotCamera {
 
 	public Direction getDirection() {
 		ColorImage image;
-		Direction dir;
 
 		try {
 			image = camera.getImage();
@@ -142,7 +141,7 @@ public class RobotCamera {
 			e.printStackTrace();
 		}
 		
-		int[] LRYellows = new int[2];
+		// int[] LRYellows = new int[2];
 		boolean yellow = false;
 		int fromLeft = 0;
 		int fromRight = 2447;

@@ -6,7 +6,7 @@ import org.usfirst.frc.team4099.control.FlightStick;
 import org.usfirst.frc.team4099.control.Gamepad;
 
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Timer;
+
 
 public class Driver {
 
@@ -23,6 +23,7 @@ public class Driver {
     public static final int FRONT_SLIDE_MOTOR = 4;
     public static final int REAR_SLIDE_MOTOR = 5;
 	
+    
 	public Driver(RobotCamera cam) {
         arcadeDrive = new RobotDrive(FRONT_LEFT_MOTOR, REAR_LEFT_MOTOR, FRONT_RIGHT_MOTOR, REAR_RIGHT_MOTOR);
         slideDrive = new SlideDrive(arcadeDrive, FRONT_SLIDE_MOTOR, REAR_SLIDE_MOTOR);
@@ -51,6 +52,7 @@ public class Driver {
 	}
 
     public void enterTeleoperatedMode() {
+    	this.autoDrive = null;
         this.arcadeDrive.setSafetyEnabled(true);
     }
     
@@ -62,13 +64,16 @@ public class Driver {
     	this.autoDrive.autoDrive();
     }
 	
+    // Using a controller
 	public void drive(Gamepad controller, FlightStick flight) {
 		switch (currentMode) {
 		case ARCADE:
 			if (controller.getLeftVerticalAxis()>0 || controller.getLeftHorizontalAxis() > 0) {
+				// Uses controller to move robot
 				arcadeDrive.arcadeDrive(controller.getLeftVerticalAxis() / REDUCTION_FACTOR,
                         -controller.getLeftHorizontalAxis() / REDUCTION_FACTOR);
 			} else {
+				// Uses Flight Stick to move robot
 				arcadeDrive.arcadeDrive(flight.getVerticalAxis() / REDUCTION_FACTOR,
 						-flight.getTwist() / REDUCTION_FACTOR);
 			}
@@ -80,8 +85,10 @@ public class Driver {
 //			slideDrive.slideDrive(controller.getLeftVerticalAxis() / REDUCTION_FACTOR, -controller.getLeftHorizontalAxis() / REDUCTION_FACTOR, controller.getRightHorizontalAxis());
 			
             if (controller.getLeftVerticalAxis() > 0 || controller.getRightHorizontalAxis() > 0 || controller.getLeftHorizontalAxis() > 0) {
+            	// Uses controller to move robot
                 slideDrive.slideDrive(controller.getLeftVerticalAxis() / REDUCTION_FACTOR, -controller.getRightHorizontalAxis() / REDUCTION_FACTOR, controller.getLeftHorizontalAxis());
             } else {
+            	// Uses Flight Stick to move robot
             	slideDrive.slideDrive(flight.getVerticalAxis() / REDUCTION_FACTOR, -flight.getTwist() / REDUCTION_FACTOR, flight.getHorizontalAxis());
             }
             /*if (controller.isDPadLeftPressedStrict()) {
@@ -91,6 +98,19 @@ public class Driver {
             } else {
             	slideDrive.slideDrive(controller.getLeftVerticalAxis() / REDUCTION_FACTOR, 0.0, controller.getLeftHorizontalAxis());            	
             }*/
+            break;
+		}
+	}
+	
+	// Using numbers
+	public void drive(double forward, double sideways, double pivot) {
+		switch (currentMode) {
+		case ARCADE:
+				arcadeDrive.arcadeDrive(forward / REDUCTION_FACTOR,
+                        -sideways / REDUCTION_FACTOR);
+			break;
+		case SLIDE:
+            slideDrive.slideDrive(forward / REDUCTION_FACTOR, -pivot / REDUCTION_FACTOR, sideways);
             break;
 		}
 	}

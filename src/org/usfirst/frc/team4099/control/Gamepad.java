@@ -42,11 +42,11 @@ public class Gamepad extends Joystick {
 	public static final int DPAD_WEST = 270;
 	public static final int DPAD_NORTHWEST = 315;
 	
-	/* Shoulder Buttons (Sit above the trigger axises) */
+	/* Shoulder Buttons (Sit above the trigger axes) */
 	public static final int LEFT_SHOULDER_BUTTON = 5;
 	public static final int RIGHT_SHOULDER_BUTTON = 6;
 	
-	/* Trigger Axises */
+	/* Trigger Axes */
 	public static final int LEFT_TRIGGER_AXIS = 2;
 	public static final int RIGHT_TRIGGER_AXIS = 3;
 	

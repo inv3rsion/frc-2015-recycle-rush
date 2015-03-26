@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 
 public class SlideDrive {
 	
-	private double currentSpeed;
+	// private double currentSpeed;
 	
 	private SpeedController sliderTalonFront;
 	private SpeedController sliderTalonRear;

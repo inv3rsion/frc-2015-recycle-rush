@@ -4,7 +4,6 @@ import org.usfirst.frc.team4099.control.FlightStick;
 import org.usfirst.frc.team4099.control.Gamepad;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.Talon;
@@ -32,6 +31,9 @@ public class Elevator {
 	
 	public static final int ENCODER_PIN_1 = 4;
 	public static final int ENCODER_PIN_2 = 5;
+	
+	public static final double REDUCTION_FACTOR = -2.0;
+	
 	private double currentHeight = 0;
 	private double DISTANCE_PER_PULSE = 0.01;
 	
@@ -50,9 +52,15 @@ public class Elevator {
 		encoder.reset();
 	}
 	
+	
 	public void twoManOpHuman(FlightStick flight) {
-		leftTalon.set(flight.getSlider() / -2.0);
-		rightTalon.set(flight.getSlider() / -2.0);
+		leftTalon.set(flight.getSlider() / REDUCTION_FACTOR);
+		rightTalon.set(flight.getSlider() / REDUCTION_FACTOR);
+	}
+	
+	public void twoManOpHuman(double move) {
+		leftTalon.set(move / REDUCTION_FACTOR);
+		rightTalon.set(move / REDUCTION_FACTOR);		
 	}
 	
 	public void singleManOpPID(Gamepad control) {
