@@ -14,6 +14,8 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
+
 
 public class Robot extends SampleRobot {
 	public static final String CAMERA_IP = "10.40.99.11";
@@ -41,7 +43,8 @@ public class Robot extends SampleRobot {
 		sendableChooser.addDefault("Tote and Bin", "moveBins");
 		sendableChooser.addObject("Move w/o Picking", "move");
 		sendableChooser.addObject("DO NOT USE", "stack");
-		SmartDashboard.putData("Auto Mode", sendableChooser);
+		SmartDashboard.putData("AutoMode", sendableChooser);
+		SmartDashboard.putString("PathToRecord", "");
 		SmartDashboard.putBoolean("isUsingPID?", false);
 		limitswitches.addToSmartDashboard();
 		// Create the driver object
@@ -59,34 +62,37 @@ public class Robot extends SampleRobot {
 	public void autonomous() {
 		debug.println("Entering autonomous mode...");
 		robotDrive.enterAutonomousMode();
-		while (isAutonomous() && isEnabled()) {
+		//while (isAutonomous() && isEnabled()) {
 			robotDrive.autoDrive();
-		}
+		//}
 	}
 
 	public void operatorControl() {
 		debug.println("Entering teleoperated mode...");
 		robotDrive.enterTeleoperatedMode();
-		while (isOperatorControl() && isEnabled()) {
 
+		while (isOperatorControl() && isEnabled()) {
 			// Start recording moves
+			
 			if (controller.isAButtonPressed() && controller.isBButtonPressed()
 					&& !recordPath.equals("")) {
 				System.out.println("Recording moves... be quick!");
 				System.out.println("Remember to use the controller and singleManOpHuman mode.");
 				recordPath = SmartDashboard.getString("PathToRecord");
+				//Calendar start = Calendar.getInstance();
 			}
 			// Actually record moves if there's a place to put them
 			if (!recordPath.equals("")) {
 				// Gets inputs, only uses controller movement for now (may
 				// change if necessary)
+				//Calendar current = Calendar.getInstance();
 				double[] inputs = { controller.getLeftVerticalAxis(),
 						controller.getLeftHorizontalAxis(),
-						controller.getRightHorizontalAxis(), flight.getSlider() };
+						controller.getRightHorizontalAxis(), flight.getVerticalAxis()};
+						//(double) start.getTimeInMillis() - current.getTimeInMillis()};
 				moves.add(inputs);
 			}
 			if (controller.isXButtonPressed() && controller.isYButtonPressed()) {
-				// TODO: write to file
 				try {
 					PrintWriter printWriter = new PrintWriter(recordPath,
 							"UTF-8");
@@ -94,7 +100,8 @@ public class Robot extends SampleRobot {
 						printWriter.println(Double.toString(moves.get(i)[0])
 								+ "," + Double.toString(moves.get(i)[1]) + ","
 								+ Double.toString(moves.get(i)[2]) + ","
-								+ Double.toString(moves.get(i)[3]));
+								+ Double.toString(moves.get(i)[3]) + "," 
+								+ Double.toString(moves.get(i)[4]));
 					}
 					printWriter.close();
 				} catch (FileNotFoundException e) {
@@ -107,17 +114,19 @@ public class Robot extends SampleRobot {
 				// stops recording
 				recordPath = "";
 			}
+			
+			
 
 			robotDrive.drive(controller, flight);
 
 			// move the reel in wheels
 			// reel.move(controller, flight);
 
-			if (!SmartDashboard.getBoolean("isUsingPID?"))
-				elevator.twoManOpHuman(flight);
-			else
+			//if (!SmartDashboard.getBoolean("isUsingPID?"))
+			elevator.twoManOpHuman(flight);
+			//else
 				// pid move mode (pick 1)
-				elevator.singleManOpPID(controller);
+			//	elevator.singleManOpPID(controller);
 			// elevator.twoManOpPID(flight);
 
 			// elevator.move(controller);

@@ -1,20 +1,10 @@
 package org.usfirst.frc.team4099.autonomous;
 
-import org.usfirst.frc.team4099.camera.*;
+import org.usfirst.frc.team4099.camera.RobotCamera;
 import org.usfirst.frc.team4099.robot.Elevator;
 import org.usfirst.frc.team4099.robot.drive.SlideDrive;
 
 import edu.wpi.first.wpilibj.Timer;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoDrive {
 	private RobotCamera camera;
@@ -24,31 +14,20 @@ public class AutoDrive {
 	
 	public Boolean movedToAutoZone = false;
 	
-	private boolean timing = false;
+	//private boolean timing = false;
 	
     public static final double REDUCTION_FACTOR = 1.5;
 	
-	private final double FORWARD_50_INCHES_TIME = 1.5;
-	private final double PIVOT_90_DEGREES_TIME = 2.3;
-	private final double SLIDE_50_INCHES_TIME = 4.0;
+	//private final double FORWARD_50_INCHES_TIME = 1.5;
+	//private final double PIVOT_90_DEGREES_TIME = 2.3;
+	//private final double SLIDE_50_INCHES_TIME = 4.0;
 	
 	public AutoDrive(RobotCamera camera, SlideDrive slideDrive) {
 		this.camera = camera;
 		this.slideDrive = slideDrive;
 		
-		// Checks for autonomous mode
-		String modeString = SmartDashboard.getString("AutoMode");
-		if(modeString.equalsIgnoreCase("move")) {
-			this.mode = AutoMode.MOVE_TO_AUTO_ZONE;
-		} else if(modeString.equalsIgnoreCase("stack")) {
-			System.err.println("ye fewl what you mad be?");
-			this.mode = AutoMode.PICK_AND_STACK_TOTES_AND_MOVE_TO_AUTO_ZONE;
-		} else {
-			System.err.println("Defaulting to stack bin and tote and move");
-			this.mode = AutoMode.PICK_UP_TOTE_AND_MOVE_TO_AUTO_ZONE;
-		}
 	}
-	
+	/*
 	public void move(double forwardDistance, double pivotDegrees, double slideDistance) {
 		double[] powers = new double[3];
 		
@@ -123,12 +102,13 @@ public class AutoDrive {
 		Timer.delay(times[order[0]] - times[order[1]] - times[order[2]]);
 		slideDrive.slideDrive(0, 0, 0);
 	}
-	
+	*/
+	/*
 	public void timingMoveToAutoZone() {
 		// Into recycling bin
 		move(20, 0, 0);
 		// TODO: pick up bin
-		elevator.setHeight(1);
+		//elevator.setHeight(1);
 		// Out of recycling bin
 		move(-30, 0, 0);
 		
@@ -136,23 +116,26 @@ public class AutoDrive {
 		move(0, 28, 0);
 		move(17, 0, 0);
 		//TODO: place recycling bin
-		elevator.setHeight(.5);
+		//elevator.setHeight(.5);
 		move(-17, 0, 0);
-		elevator.setHeight(0);
+		//\elevator.setHeight(0);
 		// Move into auto zone
 		simpleMoveToAuto();
 	}
-	
+	*/
+	/*
 	public void simpleMoveToAuto() {
 		move(154, 0, 0);
 	}
-	
+	*/
+	/*
 	public void turnAround() {
 		move(0, 0, 90);
 		move(-20, 0, 0);
 		move(0, 0, 90);
 	}
-	
+	*/
+	/*
 	public ArrayList<double[]> getFileOutput(Path path) {
 		ArrayList<double[]> moves = new ArrayList<double[]>(10000);
 		
@@ -174,8 +157,20 @@ public class AutoDrive {
 		}
 		return moves;
 	}
-	
+	*/
+	/*
 	public void doFile(AutoMode mode) {
+		// Checks for autonomous mode
+		String modeString = SmartDashboard.getString("AutoMode");
+		if(modeString.equalsIgnoreCase("move")) {
+			this.mode = AutoMode.MOVE_TO_AUTO_ZONE;
+		} else if(modeString.equalsIgnoreCase("stack")) {
+			System.err.println("ye fewl what you mad be?");
+			this.mode = AutoMode.PICK_AND_STACK_TOTES_AND_MOVE_TO_AUTO_ZONE;
+		} else {
+			System.err.println("Defaulting to stack bin and tote and move");
+			this.mode = AutoMode.PICK_UP_TOTE_AND_MOVE_TO_AUTO_ZONE;
+		}
 		// Figures out which file to use
 		String pathToFile = "";
 		switch(mode) {
@@ -195,16 +190,17 @@ public class AutoDrive {
 		// Runs numbers
 		for(int i = 0; i < moves.size(); i++) {
 			slideDrive.slideDrive(moves.get(i)[0] / REDUCTION_FACTOR, -moves.get(i)[2] / REDUCTION_FACTOR, moves.get(i)[1]);
-			elevator.twoManOpHuman(moves.get(i)[3]);
+			//elevator.twoManOpHuman(moves.get(i)[3]);
 			Timer.delay(0.005);
 		}
 		
 	}
-	
+	*/
 	public void autoDrive() {
 		
 		// Check for which auto mode it is
 		// Then, if it's supposed to do timing moving, do that
+		/*
 		if(!movedToAutoZone) {
 			switch(mode) {
 			case MOVE_TO_AUTO_ZONE:
@@ -227,5 +223,11 @@ public class AutoDrive {
 			}
 			movedToAutoZone = true;
 		}
+		*/
+		
+		slideDrive.slideDrive(.5, 0, 0);
+		Timer.delay(10);
+		slideDrive.slideDrive(0, 0, 0);
+		//Timer.delay(10000);
 	}
 }

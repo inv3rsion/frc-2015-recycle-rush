@@ -84,7 +84,7 @@ public class Driver {
             System.out.println(controller.getRightHorizontalAxis());
 //			slideDrive.slideDrive(controller.getLeftVerticalAxis() / REDUCTION_FACTOR, -controller.getLeftHorizontalAxis() / REDUCTION_FACTOR, controller.getRightHorizontalAxis());
 			
-            if (controller.getLeftVerticalAxis() > 0 || controller.getRightHorizontalAxis() > 0 || controller.getLeftHorizontalAxis() > 0) {
+            if (controller.getLeftVerticalAxis() != 0 || controller.getRightHorizontalAxis() != 0 || controller.getLeftHorizontalAxis() != 0) {
             	// Uses controller to move robot
                 slideDrive.slideDrive(controller.getLeftVerticalAxis() / REDUCTION_FACTOR, -controller.getRightHorizontalAxis() / REDUCTION_FACTOR, controller.getLeftHorizontalAxis());
             } else {
